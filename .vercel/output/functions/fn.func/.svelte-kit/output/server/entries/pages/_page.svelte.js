@@ -1,6 +1,4 @@
 import { c as create_ssr_component, d as add_attribute, f as each, v as validate_component } from "../../chunks/index2.js";
-import "chartjs-adapter-date-fns";
-import { enUS } from "date-fns/locale/index.js";
 import { Chart, registerables } from "chart.js";
 const hsla = (HSLA) => `hsla(${HSLA[0]},${100 * HSLA[1]}%,${100 * HSLA[2]}%,${HSLA[3]})`;
 const hs = {
@@ -110,9 +108,9 @@ const makeChartOptions$1 = (width2) => {
     plugins: { title: { display: false } },
     scales: {
       x: {
-        type: "timeseries",
-        time: { unit: width2 <= 20 ? "day" : "month" },
-        adapters: { date: { locale: enUS } },
+        // type: 'timeseries',
+        // time: { unit: width <= 20 ? 'day' : 'month' },
+        // adapters: { date: { locale: enUS } },
         grid: { display: true, color: hsla(cols.greyMd) },
         ticks: {
           display: false,
@@ -144,15 +142,11 @@ const makeDefaultChart = () => {
   Chart.defaults.color = hsla(cols.greyLt);
   return Chart;
 };
-const DefaultChart = makeDefaultChart();
+makeDefaultChart();
 const SmasChart = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let labels;
   let smaDatasets;
   let volumeDataset;
-  let viewLabels;
-  let viewSmaDatasets;
-  let viewVolumeDataset;
-  let chartOptions;
   let { width: width2 } = $$props;
   let { hists = [] } = $$props;
   let chartElement;
@@ -164,35 +158,24 @@ const SmasChart = create_ssr_component(($$result, $$props, $$bindings, slots) =>
   labels = makeLabels$1(hists.map((hist) => hist.date));
   smaDatasets = makeSmaDatasets(hists.map((hist) => hist.close));
   volumeDataset = makeVolumeDataset(hists.map((hist) => hist.volume));
-  viewLabels = labels.slice(-width2);
-  viewSmaDatasets = smaDatasets.map((smaDataset) => {
+  labels.slice(-width2);
+  smaDatasets.map((smaDataset) => {
     return {
       ...smaDataset,
       data: smaDataset.data.slice(-width2)
     };
   });
-  viewVolumeDataset = {
+  ({
     ...volumeDataset,
     data: volumeDataset.data.slice(-width2)
-  };
-  chartOptions = makeChartOptions$1(width2);
+  });
+  makeChartOptions$1();
   {
     {
       try {
         chart.destroy();
       } catch {
       }
-      chart = new DefaultChart(
-        chartElement,
-        {
-          type: "line",
-          data: {
-            labels: viewLabels,
-            datasets: [...viewSmaDatasets, viewVolumeDataset]
-          },
-          options: chartOptions
-        }
-      );
     }
   }
   return `<canvas${add_attribute("this", chartElement, 0)}></canvas>`;
@@ -243,9 +226,9 @@ const makeChartOptions = (width2) => {
     plugins: { title: { display: false } },
     scales: {
       x: {
-        type: "timeseries",
-        time: { unit: width2 <= 20 ? "day" : "month" },
-        adapters: { date: { locale: enUS } },
+        // type: 'timeseries',
+        // time: { unit: width <= 20 ? 'day' : 'month' },
+        // adapters: { date: { locale: enUS } },
         grid: { display: true, color: hsla(cols.greyMd) },
         ticks: {
           display: true,
@@ -275,11 +258,6 @@ const makeChartOptions = (width2) => {
   };
 };
 const TrendChart = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let labels;
-  let trendDatasets;
-  let chartOptions;
-  Chart.register(...registerables);
-  Chart.defaults.plugins.legend.display = false;
   let { width: width2 } = $$props;
   let { hists = [] } = $$props;
   let chartElement;
@@ -288,37 +266,15 @@ const TrendChart = create_ssr_component(($$result, $$props, $$bindings, slots) =
     $$bindings.width(width2);
   if ($$props.hists === void 0 && $$bindings.hists && hists !== void 0)
     $$bindings.hists(hists);
-  labels = makeLabels(width2, hists.map((hist) => hist.date));
-  trendDatasets = makeTrendDatasets(width2, hists.map((hist) => hist.close));
-  chartOptions = makeChartOptions(width2);
+  makeLabels(width2, hists.map((hist) => hist.date));
+  makeTrendDatasets(width2, hists.map((hist) => hist.close));
+  makeChartOptions();
   {
     {
       try {
         chart.destroy();
       } catch {
       }
-      chart = new DefaultChart(
-        chartElement,
-        {
-          type: "line",
-          data: {
-            labels,
-            datasets: [
-              ...trendDatasets,
-              {
-                type: "line",
-                yAxisID: "y",
-                data: hists.map((_) => 0),
-                label: `${0}`,
-                borderColor: hsla(cols.greyLt),
-                backgroundColor: hsla(cols.greyLt),
-                borderWidth: 1
-              }
-            ]
-          },
-          options: chartOptions
-        }
-      );
     }
   }
   return `<canvas${add_attribute("this", chartElement, 0)}></canvas>`;

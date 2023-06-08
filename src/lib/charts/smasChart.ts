@@ -2,7 +2,7 @@ import type { ChartDataset, ChartOptions } from 'chart.js';
 import type { TrendLineOpt } from '$lib/types';
 
 import { calcRollAvgs, cols, hsla, replaceZerosWithPreviousValue } from '$lib/helpers';
-import { enUS } from 'date-fns/locale/index.js';
+// import { enUS } from 'date-fns/locale/index.js';
 
 // import colors from 'tailwindcss/colors'
 
@@ -75,9 +75,9 @@ export const makeChartOptions = (width: number): ChartOptions => {
 		plugins: { title: { display: false } },
 		scales: {
 			x: {
-				type: 'timeseries',
-				time: { unit: width <= 20 ? 'day' : 'month' },
-				adapters: { date: { locale: enUS } },
+				// type: 'timeseries',
+				// time: { unit: width <= 20 ? 'day' : 'month' },
+				// adapters: { date: { locale: enUS } },
 				grid: { display: true, color: hsla(cols.greyMd) },
 				ticks: {
 					display: false,

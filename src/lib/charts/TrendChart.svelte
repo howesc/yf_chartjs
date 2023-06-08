@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { Hist } from '$lib/types';
 
-	import { Chart, registerables } from 'chart.js';
-	import 'chartjs-adapter-date-fns';
+	// import 'chartjs-adapter-date-fns';
 	import {
 		makeChartOptions,
 		makeLabels,
@@ -10,9 +9,7 @@
 	} from './trendChart';
 	import { DefaultChart } from './defaultChart';
 	import { cols, hsla } from '$lib/helpers';
-
-	Chart.register(...registerables);
-	Chart.defaults.plugins.legend.display = false;
+	import type { Chart } from 'chart.js';
 
 	export let width: number;
 	export let hists: Hist[] = [];

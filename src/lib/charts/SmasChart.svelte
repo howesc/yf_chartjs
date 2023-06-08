@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Hist } from '$lib/types';
 
-	import 'chartjs-adapter-date-fns';
+	// import 'chartjs-adapter-date-fns';
 	import {
 		makeChartOptions,
 		makeLabels,
