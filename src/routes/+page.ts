@@ -4,7 +4,7 @@ import type { PageLoad } from './$types';
 const symbolIds = [
 	'0P0000J1C2.L',
 	'0P0000UUP8.L',
-	'0P0000JSAS.L',
+	'0P0000JSAS.L'
 	// '0P0000X9FA.L',
 	// '0P000102M0.L',
 	// '0P0000ZT02.L',
@@ -25,26 +25,15 @@ const symbolIds = [
 ];
 // const symbolId = '0P0000J1C2.L';
 
-const now = new Date();
-const period1 = new Date(now.setFullYear(now.getFullYear() - 5));
-console.log({period1})
-
-// export const load: PageLoad = async ({ params, fetch }) => {
-//   const response = await fetch(`/api/historical?symbolId=${symbolId}&period1=${period1}`)
-//   const data = await response.json()
-// 	return { data };
-// };
 export const load: PageLoad = async ({ params, fetch }) => {
-	try {
-		let responses = await Promise.all(
-			symbolIds.map((symbolId) => fetch(`/api/historical?symbolId=${symbolId}&period1=${period1}`))
-		);
-		let datas = await Promise.all(responses.map((response) => response.json()));
+	const now = new Date();
+	const period1 = new Date(now.setFullYear(now.getFullYear() - 2));
+	// console.log({ period1 });
 
-		return { data: datas };
-	} catch (err) {
-		console.log({ err });
-	}
-  // const data=[]
-  // return {data}
+	let responses = await Promise.all(
+		symbolIds.map((symbolId) => fetch(`/api/historical?symbolId=${symbolId}&period1=${period1}`))
+	);
+	let datas = await Promise.all(responses.map((response) => response.json()));
+
+	return { data: datas };
 };
