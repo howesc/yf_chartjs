@@ -3,12 +3,12 @@
 	import TrendChart from '$lib/charts/TrendChart.svelte';
 	import type { PageData } from './$types';
 
-	export let data: PageData;
+	// export let data: PageData;
 
 	let width = 240;
 </script>
 
-<div class="flex flex-col space-y-4">
+<!-- <div class="flex flex-col space-y-4">
 	{#each data.data as d}
 		<div class="flex flex-col space-y-2">
 			<div>{@html d.quote.symbol.name}</div>
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 	{/each}
-</div>
+</div> -->
 
 <!-- <style lang="postcss">
 	:global(html) {
@@ -28,3 +28,5 @@
 		background-color: theme(colors.zinc.900);
 	}
 </style> -->
+
+<div>is it working yet</div>
