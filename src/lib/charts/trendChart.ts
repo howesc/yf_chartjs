@@ -2,7 +2,7 @@ import type { ChartDataset, ChartOptions } from 'chart.js';
 import type { TrendLineOpt } from '$lib/types';
 
 import { calcRollAvgs, cols, hsla, replaceZerosWithPreviousValue } from '$lib/helpers';
-import { enUS } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale/index.js';
 
 const trendLineOpts: TrendLineOpt[] = [
 	{ win: 120, col: cols.green, width: 2 },

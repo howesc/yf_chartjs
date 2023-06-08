@@ -37,25 +37,27 @@
 			chart.destroy();
 		} catch {}
 
-		chart = new DefaultChart(chartElement, {
-			type: 'line',
-			data: {
-				labels: labels,
-				datasets: [
-					...trendDatasets,
-					{
-						type: 'line',
-						yAxisID: 'y',
-						data: hists.map((_) => 0),
-						label: `${0}`,
-						borderColor: hsla(cols.greyLt),
-						backgroundColor: hsla(cols.greyLt),
-						borderWidth: 1
-					}
-				]
-			},
-			options: chartOptions
-		});
+		if (chartElement) {
+			chart = new DefaultChart(chartElement, {
+				type: 'line',
+				data: {
+					labels: labels,
+					datasets: [
+						...trendDatasets,
+						{
+							type: 'line',
+							yAxisID: 'y',
+							data: hists.map((_) => 0),
+							label: `${0}`,
+							borderColor: hsla(cols.greyLt),
+							backgroundColor: hsla(cols.greyLt),
+							borderWidth: 1
+						}
+					]
+				},
+				options: chartOptions
+			});
+		}
 	}
 </script>
 

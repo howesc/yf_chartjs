@@ -41,14 +41,16 @@
 			chart.destroy();
 		} catch {}
 
-		chart = new DefaultChart(chartElement, {
-			type: 'line',
-			data: {
-				labels: viewLabels,
-				datasets: [...viewSmaDatasets, viewVolumeDataset]
-			},
-			options: chartOptions
-		});
+		if (chartElement) {
+			chart = new DefaultChart(chartElement, {
+				type: 'line',
+				data: {
+					labels: viewLabels,
+					datasets: [...viewSmaDatasets, viewVolumeDataset]
+				},
+				options: chartOptions
+			});
+		}
 	}
 </script>
 
