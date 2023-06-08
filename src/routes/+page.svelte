@@ -4,7 +4,6 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	// $: console.log({ data });
 
 	let width = 240;
 </script>
@@ -23,13 +22,9 @@
 	{/each}
 </div>
 
-<!-- <pre>
-  {JSON.stringify(data, null, 2)}
-</pre> -->
-
-<style lang="postcss">
+<!-- <style lang="postcss">
 	:global(html) {
 		color: theme(colors.zinc.50);
 		background-color: theme(colors.zinc.900);
 	}
-</style>
+</style> -->
